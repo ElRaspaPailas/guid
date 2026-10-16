@@ -1,0 +1,21 @@
+services:
+  gids-puertas:
+    build: .
+    container_name: gids-pantallas-embarque
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3002}:3002"
+    environment:
+      - PORT=${PORT:-3002}
+      - FIDS_URL=${FIDS_URL:-http://localhost:8080}
+      - POLL_INTERVAL_MS=${POLL_INTERVAL_MS:-15000}
+      - AIRPORT_NAME=${AIRPORT_NAME:-Aeropuerto Internacional}
+      - AIRPORT_CODE=${AIRPORT_CODE:-AER}
+      - TV_CONTROLER_URL=${TV_CONTROLER_URL:-http://127.0.0.1:3001}
+      - PANEL_SESSION_SECRET=${PANEL_SESSION_SECRET:-}
+    volumes:
+      - ./data:/app/data
+    env_file:
+      - path: .env
+        required: false
+
